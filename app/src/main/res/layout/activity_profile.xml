@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f1f1"
+    tools:context=".ui.neighbour_list.ProfileActivity">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="true"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/activity_user_details_img"
+            android:layout_width="0dp"
+            android:layout_height="260dp"
+            android:contentDescription="profile picture"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/sym_def_app_icon" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_user_details_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            app:backgroundTint="#f1f1f1"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_user_details_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_user_details_img"
+            app:rippleColor="#000000"
+            app:srcCompat="@drawable/ic_favorite_border_24dp" />
+
+        <TextView
+            android:id="@+id/activity_user_details_name1_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="28dp"
+            android:shadowColor="#000000"
+            android:shadowDx="1.5"
+            android:shadowDy="1.3"
+            android:shadowRadius="1.6"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_user_details_img"
+            app:layout_constraintStart_toStartOf="@+id/activity_user_details_img"
+            tools:text="Caroline" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/activity_user_details_card1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_user_details_img">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/activity_user_details_name2_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingTop="25dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="10dp"
+                    android:singleLine="true"
+                    android:textSize="22sp"
+                    tools:text="Caroline" />
+
+                <TextView
+                    android:id="@+id/activity_user_details_address_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_location_24dp"
+                    android:drawablePadding="10dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textSize="15sp"
+                    tools:text="Adresse de l'utilisateur" />
+
+                <TextView
+                    android:id="@+id/activity_user_details_phone_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_phone_24dp"
+                    android:drawablePadding="10dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textSize="15sp"
+                    tools:text="+33 1 23 45 67 89" />
+
+                <TextView
+                    android:id="@+id/activity_user_details_facebook_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_faccebook_24dp"
+                    android:drawablePadding="10dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textSize="15sp"
+                    tools:text="www.facebook.fr/caroline" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/activity_user_details_card2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_user_details_card1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/activity_user_details_about_me_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingTop="25dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="10dp"
+                    android:singleLine="true"
+                    android:text="A propos de moi"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/activity_user_details_description_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="15dp"
+                    android:textSize="15sp"
+                    tools:text="Description" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:id="@+id/activity_user_details_return_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_arrow_back_24dp"
+            app:layout_constraintStart_toStartOf="@+id/activity_user_details_img"
+            app:layout_constraintTop_toTopOf="@+id/activity_user_details_img" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
