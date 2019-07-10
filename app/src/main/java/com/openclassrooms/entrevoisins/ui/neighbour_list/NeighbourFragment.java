@@ -59,31 +59,37 @@ public class NeighbourFragment extends Fragment implements FragmentLifecycle {
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        Log.d(TAG, "onStart: called");
+        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this);
     }
 
     @Override
     public void onPauseFragment() {
-        EventBus.getDefault().unregister(this);
+        Log.d(TAG, "onPauseFragment: called");
+        if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onResumeFragment() {
-        EventBus.getDefault().register(this);
+        Log.d(TAG, "onResumeFragment: called");
+        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
+        Log.d(TAG, "onStop: called");
+        if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this);
     }
 
     /**
      * Fired if the user clicks on a delete button
+     *
      * @param event
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
+        Log.d(TAG, "onDeleteNeighbour: called");
         mApiService.deleteNeighbour(event.neighbour);
         this.getActivity().getSharedPreferences("PREF", Context.MODE_PRIVATE).edit().putBoolean(event.neighbour.getName(), false).apply();
         initList();
