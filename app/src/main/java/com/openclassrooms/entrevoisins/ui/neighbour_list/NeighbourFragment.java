@@ -32,6 +32,7 @@ public class NeighbourFragment extends Fragment implements FragmentLifecycle {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: called");
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
     }
@@ -39,6 +40,7 @@ public class NeighbourFragment extends Fragment implements FragmentLifecycle {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: called");
         View view = inflater.inflate(R.layout.fragment_neighbour_list, container, false);
         Context context = view.getContext();
         mRecyclerView = (RecyclerView) view;
@@ -48,38 +50,35 @@ public class NeighbourFragment extends Fragment implements FragmentLifecycle {
         return view;
     }
 
-    /**
-     * Init the List of neighbours
-     */
-    private void initList() {
-        mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
-    }
-
     @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: called");
+    public void onAttach(Context context) {
+        super.onAttach(context);
         if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this);
     }
 
     @Override
     public void onPauseFragment() {
-        Log.d(TAG, "onPauseFragment: called");
         if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onResumeFragment() {
-        Log.d(TAG, "onResumeFragment: called");
         if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop: called");
-        if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this);
+        //TODO: does an event have to be unregister with onStop()?
+        //if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * Init the List of neighbours
+     */
+    private void initList() {
+        mNeighbours = mApiService.getNeighbours();
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
     }
 
     /**

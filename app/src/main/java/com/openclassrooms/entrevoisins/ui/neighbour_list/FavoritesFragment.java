@@ -11,7 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +43,28 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initList();
+    }
+
+    @Override
+    public void onPauseFragment() {
+        if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onResumeFragment() {
+        initList();
+        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     /**
@@ -78,19 +104,14 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        initList();
-    }
-
-    @Override
-    public void onPauseFragment() {
-
-    }
-
-    @Override
-    public void onResumeFragment() {
+    /**
+     * Fired if the user clicks on a delete button
+     *
+     * @param event
+     */
+    @Subscribe
+    public void onDeleteFavorite(DeleteNeighbourEvent event) {
+        this.getActivity().getSharedPreferences("PREF", Context.MODE_PRIVATE).edit().putBoolean(event.neighbour.getName(), false).apply();
         initList();
     }
 }
