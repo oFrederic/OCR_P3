@@ -88,7 +88,6 @@ public class NeighbourFragment extends Fragment implements FragmentLifecycle {
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
-        Log.d(TAG, "onDeleteNeighbour: called");
         mApiService.deleteNeighbour(event.neighbour);
         this.getActivity().getSharedPreferences("PREF", Context.MODE_PRIVATE).edit().putBoolean(event.neighbour.getName(), false).apply();
         initList();

@@ -11,14 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.service.DummyNeighbourGenerator;
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -26,12 +28,14 @@ import static android.content.Context.MODE_PRIVATE;
 public class FavoritesFragment extends Fragment implements FragmentLifecycle {
     private static final String TAG = "FavoritesFragment";
 
+    private NeighbourApiService mApiService;
     private List<Neighbour> mFavoritesNeighbours;
     private RecyclerView mRecyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mApiService = DI.getNeighbourApiService();
     }
 
     @Override
@@ -80,26 +84,16 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
      * to the list.
      */
     private void setFavoritesNeighbours() {
+        //get the full list of every users
+        List<Neighbour> usersList = mApiService.getNeighbours();
+        //create a new list of users, we will add favorite users in it
         mFavoritesNeighbours = new ArrayList<>();
 
-        List<Neighbour> usersNames = Arrays.asList(
-                new Neighbour(1, "Caroline", "http://i.pravatar.cc/1000?u=a042581f4e29026704d"),
-                new Neighbour(2, "Jack", "http://i.pravatar.cc/1000?u=a042581f4e29026704e"),
-                new Neighbour(3, "Chloé", "http://i.pravatar.cc/1000?u=a042581f4e29026704f"),
-                new Neighbour(4, "Vincent", "http://i.pravatar.cc/1000?u=a042581f4e29026704a"),
-                new Neighbour(5, "Elodie", "http://i.pravatar.cc/1000?u=a042581f4e29026704b"),
-                new Neighbour(6, "Sylvain", "http://i.pravatar.cc/1000?u=a042581f4e29026704c"),
-                new Neighbour(7, "Laetitia", "http://i.pravatar.cc/1000?u=a042581f4e29026703d"),
-                new Neighbour(8, "Dan", "http://i.pravatar.cc/1000?u=a042581f4e29026703b"),
-                new Neighbour(9, "Joseph", "http://i.pravatar.cc/1000?u=a042581f4e29026704d"),
-                new Neighbour(10, "Emma", "http://i.pravatar.cc/1000?u=a042581f4e29026706d"),
-                new Neighbour(11, "Patrick", "http://i.pravatar.cc/1000?u=a042581f4e29026702d"),
-                new Neighbour(12, "Ludovic", "http://i.pravatar.cc/1000?u=a042581f3e39026702d")
-        );
-        //loop inside the list to check who is favorite or not.
-        for (int i = 0; i < usersNames.size(); i++) {
-            if (this.getActivity().getSharedPreferences("PREF", MODE_PRIVATE).getBoolean(usersNames.get(i).getName(), false)) {
-                mFavoritesNeighbours.add(usersNames.get(i));
+
+        //loop inside the full list to check who is favorite then add it to the favorite list
+        for (int i = 0; i < usersList.size(); i++) {
+            if (this.getActivity().getSharedPreferences("PREF", MODE_PRIVATE).getBoolean(usersList.get(i).getName(), false)) {
+                mFavoritesNeighbours.add(usersList.get(i));
             }
         }
     }
@@ -112,6 +106,7 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
     @Subscribe
     public void onDeleteFavorite(DeleteNeighbourEvent event) {
         this.getActivity().getSharedPreferences("PREF", Context.MODE_PRIVATE).edit().putBoolean(event.neighbour.getName(), false).apply();
+
         initList();
     }
 }
