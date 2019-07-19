@@ -36,6 +36,7 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
+        mFavoritesNeighbours = new ArrayList<>();
     }
 
     @Override
@@ -75,25 +76,26 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
      * Init the List of neighbours
      */
     private void initList() {
-        setFavoritesNeighbours();
+        setFavoritesNeighbours(mFavoritesNeighbours);
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoritesNeighbours));
     }
 
     /**
      * Check every user to see if they are favorite or not, if they are favorite they will be added
      * to the list.
+     *
+     * @param list favorite list
      */
-    private void setFavoritesNeighbours() {
-        //get the full list of every users
-        List<Neighbour> usersList = mApiService.getNeighbours();
-        //create a new list of users, we will add favorite users in it
-        mFavoritesNeighbours = new ArrayList<>();
+    public void setFavoritesNeighbours(List<Neighbour> list) {
+        // Get the full list of users
+        List<Neighbour> usersList = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
+        // Clear list of users
+        list.clear();
 
-
-        //loop inside the full list to check who is favorite then add it to the favorite list
+        // Loop inside usersList to check who is favorite or not, add every favorite user to the list
         for (int i = 0; i < usersList.size(); i++) {
             if (this.getActivity().getSharedPreferences("PREF", MODE_PRIVATE).getBoolean(usersList.get(i).getName(), false)) {
-                mFavoritesNeighbours.add(usersList.get(i));
+                list.add(usersList.get(i));
             }
         }
     }
@@ -101,7 +103,7 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
     /**
      * Fired if the user clicks on a delete button
      *
-     * @param event
+     * @param event event
      */
     @Subscribe
     public void onDeleteFavorite(DeleteNeighbourEvent event) {
