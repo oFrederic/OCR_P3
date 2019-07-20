@@ -67,6 +67,15 @@ public class NeighbourServiceTest {
 
     @Test
     public void deleteFavoriteNeighbourWithSuccess() {
-        //TODO: code the delete test
+        //Neighbour we want to delete
+        Neighbour neighbourToDelete = new Neighbour(5, "Elodie", "http://i.pravatar.cc/1000?u=a042581f4e29026704b");
+        //Simulate SharedPreferences data
+        ArrayList<Neighbour> favoriteData = new ArrayList<>();
+        favoriteData.add(new Neighbour(1, "Caroline", "http://i.pravatar.cc/1000?u=a042581f4e29026704d"));
+        favoriteData.add(new Neighbour(5, "Elodie", "http://i.pravatar.cc/1000?u=a042581f4e29026704b"));
+        favoriteData.add(new Neighbour(9, "Joseph", "http://i.pravatar.cc/1000?u=a042581f4e29026704d"));
+        //We use the service "EventBus" to delete the user, then check if the user was correctly removed
+        service.deleteNeighbour(neighbourToDelete);
+        assertEquals(2, favoriteData.size());
     }
 }
