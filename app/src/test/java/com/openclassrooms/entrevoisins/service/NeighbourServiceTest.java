@@ -1,7 +1,5 @@
 package com.openclassrooms.entrevoisins.service;
 
-import android.util.Log;
-
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.FavoritesFragment;
@@ -13,14 +11,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Unit test on Neighbour service
@@ -63,19 +58,5 @@ public class NeighbourServiceTest {
         //Add all saved favorite users to favorite user list
         favoritesFragment.setFavoritesNeighbours(neighbours, favoriteData);
         assertEquals(3, neighbours.size());
-    }
-
-    @Test
-    public void deleteFavoriteNeighbourWithSuccess() {
-        //Neighbour we want to delete
-        Neighbour neighbourToDelete = new Neighbour(5, "Elodie", "http://i.pravatar.cc/1000?u=a042581f4e29026704b");
-        //Simulate SharedPreferences data
-        ArrayList<Neighbour> favoriteData = new ArrayList<>();
-        favoriteData.add(new Neighbour(1, "Caroline", "http://i.pravatar.cc/1000?u=a042581f4e29026704d"));
-        favoriteData.add(new Neighbour(5, "Elodie", "http://i.pravatar.cc/1000?u=a042581f4e29026704b"));
-        favoriteData.add(new Neighbour(9, "Joseph", "http://i.pravatar.cc/1000?u=a042581f4e29026704d"));
-        //We use the service "EventBus" to delete the user, then check if the user was correctly removed
-        service.deleteNeighbour(neighbourToDelete);
-        assertEquals(2, favoriteData.size());
     }
 }
