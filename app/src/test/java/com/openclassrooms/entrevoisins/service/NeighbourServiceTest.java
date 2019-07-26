@@ -3,7 +3,9 @@ package com.openclassrooms.entrevoisins.service;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.FavoritesFragment;
+import com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter;
 
+import org.greenrobot.eventbus.EventBus;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +18,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 
 /**
  * Unit test on Neighbour service
@@ -58,5 +61,16 @@ public class NeighbourServiceTest {
         //Add all saved favorite users to favorite user list
         favoritesFragment.setFavoritesNeighbours(neighbours, favoriteData);
         assertEquals(3, neighbours.size());
+    }
+
+    @Test
+    public void deleteFavoriteNeighbourWithSuccess() {
+        FavoritesFragment favoritesFragment = new FavoritesFragment();
+        //The neighbour we want to delete
+        Neighbour neighbourToDelete = new Neighbour(1, "Caroline", "http://i.pravatar.cc/1000?u=a042581f4e29026704d");
+        //Call the method that will return the correct name to delete
+        String result = favoritesFragment.onNeighbourDelete(neighbourToDelete);
+        //Check if we got the correct key "name" to delete
+        assertEquals("Caroline", result);
     }
 }

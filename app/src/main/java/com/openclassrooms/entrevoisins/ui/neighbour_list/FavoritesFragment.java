@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
-import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.DummyNeighbourGenerator;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
@@ -123,13 +123,23 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
     }
 
     /**
+     * Get the name of the Neighbour we want to delete
+     *
+     * @param neighbour neighbour to delete
+     * @return name of the neighbour to delete
+     */
+    public String onNeighbourDelete(Neighbour neighbour) {
+        return neighbour.getName();
+    }
+
+    /**
      * Fired if the user clicks on a delete button
      *
      * @param event event
      */
     @Subscribe
-    public void onDeleteFavorite(DeleteNeighbourEvent event) {
-        this.getActivity().getSharedPreferences("PREF", Context.MODE_PRIVATE).edit().putBoolean(event.neighbour.getName(), false).apply();
+    public void onDeleteFavorite(DeleteFavoriteEvent event) {
+        this.getActivity().getSharedPreferences("PREF", Context.MODE_PRIVATE).edit().putBoolean(onNeighbourDelete(event.neighbour), false).apply();
 
         initList();
     }
