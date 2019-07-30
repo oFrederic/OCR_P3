@@ -16,6 +16,7 @@ The very first project where the student will have to code. From an unfinished a
 
 <h2>Key learnings</h2>
 
+- Activity
 - Fragment 
 - Intent
 - Test 
