@@ -22,8 +22,6 @@ The very first project where the student will have to code. From an unfinished a
 - EventBus
 - Glide
 
-If project has been improved after submission, here is a good place to specify it.
-
 <h2>Installation</h2>
 
 1. Download this project as zip and extract it
