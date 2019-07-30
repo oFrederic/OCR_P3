@@ -9,7 +9,8 @@ A social application that allows people from the same neighborhood to make small
 <h2>Goal and requirements</h2>
 
 The very first project where the student will have to code. From an unfinished application the student must :
-  1. Add a new feature (favorite user activity)
+  1. Add a new feature (profile user activity)
+  2. Add a favorite system
   2. Add unit test for every new fonctionality
   3. Add instrumented test
 
