@@ -37,7 +37,6 @@ Still in progress
 
 - Author: <a href="https://openclassrooms.com" target="_blank">OpenClassrooms</a>
 - Illustrations
-- Colors
 - Any material
 
 <h2>Copyright</h2>
