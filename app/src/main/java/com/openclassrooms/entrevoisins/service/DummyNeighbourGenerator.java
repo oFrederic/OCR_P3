@@ -23,7 +23,19 @@ public abstract class DummyNeighbourGenerator {
             new Neighbour(12, "Ludovic", "http://i.pravatar.cc/1000?u=a042581f3e39026702d")
     );
 
+    public static List<Neighbour> DUMMY_NEIGHBOURS_FAVORITES = Arrays.asList(
+            new Neighbour(3, "Chloé", "http://i.pravatar.cc/1000?u=a042581f4e29026704f"),
+            new Neighbour(4, "Vincent", "http://i.pravatar.cc/1000?u=a042581f4e29026704a"),
+            new Neighbour(6, "Sylvain", "http://i.pravatar.cc/1000?u=a042581f4e29026704c"),
+            new Neighbour(10, "Emma", "http://i.pravatar.cc/1000?u=a042581f4e29026706d"),
+            new Neighbour(12, "Ludovic", "http://i.pravatar.cc/1000?u=a042581f3e39026702d")
+    );
+
     static List<Neighbour> generateNeighbours() {
         return new ArrayList<>(DUMMY_NEIGHBOURS);
+    }
+
+    static List<Neighbour> generateNeighboursFavorites() {
+        return new ArrayList<>(DUMMY_NEIGHBOURS_FAVORITES);
     }
 }
