@@ -1,6 +1,5 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +11,8 @@ import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
+import butterknife.BindView;
+
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_ID;
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_NAME;
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_PICTURE;
@@ -19,16 +20,24 @@ import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyc
 public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
 
-    SharedPreferences mPreferences;
-
+    // UI Components
+    @BindView(R.id.activity_user_details_img)
     ImageView mProfilePictureImageView;
+    @BindView(R.id.activity_user_details_return_img)
     ImageView mReturnImageView;
+    @BindView(R.id.activity_user_details_name1_txt)
     TextView mNameTextView1;
+    @BindView(R.id.activity_user_details_name2_txt)
     TextView mNameTextView2;
+    @BindView(R.id.activity_user_details_address_txt)
     TextView mAddressTextView;
+    @BindView(R.id.activity_user_details_phone_txt)
     TextView mPhoneNumberTextView;
+    @BindView(R.id.activity_user_details_facebook_txt)
     TextView mFacebookAddressTextView;
+    @BindView(R.id.activity_user_details_description_txt)
     TextView mDescriptionTextView;
+    @BindView(R.id.activity_user_details_fab)
     FloatingActionButton mFavoriteFab;
 
     //the current user we are looking at
@@ -42,28 +51,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        //folder where we can save and load data
-        mPreferences = getSharedPreferences("PREF", MODE_PRIVATE);
-
-        //link every widgets to is variable
-        mProfilePictureImageView = findViewById(R.id.activity_user_details_img);
-        mReturnImageView = findViewById(R.id.activity_user_details_return_img);
-        mNameTextView1 = findViewById(R.id.activity_user_details_name1_txt);
-        mNameTextView2 = findViewById(R.id.activity_user_details_name2_txt);
-        mAddressTextView = findViewById(R.id.activity_user_details_address_txt);
-        mPhoneNumberTextView = findViewById(R.id.activity_user_details_phone_txt);
-        mFacebookAddressTextView = findViewById(R.id.activity_user_details_facebook_txt);
-        mDescriptionTextView = findViewById(R.id.activity_user_details_description_txt);
-        mFavoriteFab = findViewById(R.id.activity_user_details_fab);
-
         //get data and set data
         getIncomingIntent();
-
-        //check if the current user were saved favorite or not
-        mIsFavorite = mPreferences.getBoolean(mCurrentNeighbour.getName(), false);
-
-        //show the correct logo on favorite fab
-        setFabOnPreferences();
 
         /**
          * Change the favorite fab and save user as favorite or not.
@@ -74,11 +63,9 @@ public class ProfileActivity extends AppCompatActivity {
                 if (mIsFavorite) {
                     mFavoriteFab.setImageResource(R.drawable.ic_favorite_border_24dp);
                     mIsFavorite = false;
-                    mPreferences.edit().putBoolean(mCurrentNeighbour.getName(), false).apply();
                 } else {
                     mFavoriteFab.setImageResource(R.drawable.ic_favorite_24dp);
                     mIsFavorite = true;
-                    mPreferences.edit().putBoolean(mCurrentNeighbour.getName(), true).apply();
                 }
             }
         });
@@ -92,13 +79,12 @@ public class ProfileActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
     }
 
     /**
      * Check if user is favorite or not and show the logo in consequence.
      */
-    private void setFabOnPreferences() {
+    private void setFab() {
         if (mIsFavorite) {
             mFavoriteFab.setImageResource(R.drawable.ic_favorite_24dp);
         } else {

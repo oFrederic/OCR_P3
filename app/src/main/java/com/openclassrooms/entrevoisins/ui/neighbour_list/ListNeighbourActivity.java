@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.openclassrooms.entrevoisins.R;
 
@@ -54,10 +53,10 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int newPosition) {
-            FragmentLifecycle fragmentToShow = (FragmentLifecycle)mPagerAdapter.getItem(newPosition);
+            FragmentLifecycle fragmentToShow = (FragmentLifecycle) mPagerAdapter.getItem(newPosition);
             fragmentToShow.onResumeFragment();
 
-            FragmentLifecycle fragmentToHide = (FragmentLifecycle)mPagerAdapter.getItem(currentPosition);
+            FragmentLifecycle fragmentToHide = (FragmentLifecycle) mPagerAdapter.getItem(currentPosition);
             fragmentToHide.onPauseFragment();
 
             currentPosition = newPosition;

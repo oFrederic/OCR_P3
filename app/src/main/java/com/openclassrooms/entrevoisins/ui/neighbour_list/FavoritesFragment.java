@@ -14,31 +14,24 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.service.DummyNeighbourGenerator;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class FavoritesFragment extends Fragment implements FragmentLifecycle {
     private static final String TAG = "FavoritesFragment";
 
     private NeighbourApiService mApiService;
-    private ArrayList<Neighbour> mFavoritesNeighbours;
-    private ArrayList<Neighbour> mFavoriteData;
+    private List<Neighbour> mFavoritesNeighbours;
     private RecyclerView mRecyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
-        mFavoritesNeighbours = new ArrayList<>();
-        mFavoriteData = new ArrayList<>();
     }
 
     @Override
@@ -78,58 +71,8 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
      * Init the List of neighbours
      */
     private void initList() {
-        mFavoriteData = getFavoriteData();
-        setFavoritesNeighbours(mFavoritesNeighbours, mFavoriteData);
+        mFavoritesNeighbours = mApiService.getNeighbours();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoritesNeighbours));
-    }
-
-    /**
-     * We are getting all the data from SharedPreferences to return the correct list of favorite
-     *
-     * @return List of favorite that was saved in sharedPreferences
-     */
-    private ArrayList<Neighbour> getFavoriteData() {
-        List<Neighbour> allNeighbours = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
-        ArrayList<Neighbour> neighbours = new ArrayList<>();
-
-        for (int i = 0; i < allNeighbours.size(); i++) {
-            if (this.getActivity().getSharedPreferences("PREF", MODE_PRIVATE).getBoolean(allNeighbours.get(i).getName(), false)) {
-                neighbours.add(allNeighbours.get(i));
-            }
-        }
-
-        return neighbours;
-    }
-
-    /**
-     * Check every user with the favoriteData, if they are favorite they will be added
-     * to the list.
-     *
-     * @param list         favorite list
-     * @param favoriteData data of favorite from SharedPreference
-     */
-    public void setFavoritesNeighbours(ArrayList<Neighbour> list, ArrayList<Neighbour> favoriteData) {
-        // Get the full list of users
-        List<Neighbour> usersList = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
-        // Clear list of favorite users
-        list.clear();
-
-        // Loop inside usersList to check who is favorite or not, add every favorite user to the list
-        for (int i = 0; i < usersList.size(); i++) {
-            if (favoriteData.contains(usersList.get(i))) {
-                list.add(usersList.get(i));
-            }
-        }
-    }
-
-    /**
-     * Get the name of the Neighbour we want to delete
-     *
-     * @param neighbour neighbour to delete
-     * @return name of the neighbour to delete
-     */
-    public String onNeighbourDelete(Neighbour neighbour) {
-        return neighbour.getName();
     }
 
     /**
@@ -139,8 +82,6 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
      */
     @Subscribe
     public void onDeleteFavorite(DeleteFavoriteEvent event) {
-        this.getActivity().getSharedPreferences("PREF", Context.MODE_PRIVATE).edit().putBoolean(onNeighbourDelete(event.neighbour), false).apply();
-
         initList();
     }
 }
