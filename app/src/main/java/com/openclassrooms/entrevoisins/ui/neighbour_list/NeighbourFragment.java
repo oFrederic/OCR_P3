@@ -69,8 +69,6 @@ public class NeighbourFragment extends Fragment implements FragmentLifecycle {
     @Override
     public void onStop() {
         super.onStop();
-        //TODO: does an event have to be unregister with onStop()?
-        //if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this);
     }
 
     /**

@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_ID;
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_NAME;
@@ -29,10 +31,12 @@ public class ProfileActivity extends AppCompatActivity {
     TextView mDescriptionTextView;
     FloatingActionButton mFavoriteFab;
 
-    //the current user we are looking at
+    private NeighbourApiService mApiService;
+
+    // Current neighbour we are looking at.
     Neighbour mCurrentNeighbour;
 
-    //the current user is favorite or not
+    // Current neighbour is favorite or not.
     boolean mIsFavorite;
 
     @Override
@@ -51,8 +55,17 @@ public class ProfileActivity extends AppCompatActivity {
         mDescriptionTextView = findViewById(R.id.activity_user_details_description_txt);
         mFavoriteFab = findViewById(R.id.activity_user_details_fab);
 
-        //get data and set data
+        // Get data and set data
         getIncomingIntent();
+
+        // Access to the API
+        mApiService = DI.getNeighbourApiService();
+
+        // Check if the neighbour is favorite or not
+        mIsFavorite = mApiService.getNeighboursFavorites().contains(mCurrentNeighbour);
+
+        // Set the Fab on if the neighbour is favorite
+        setFab();
 
         /**
          * Change the favorite fab and save user as favorite or not.
@@ -62,9 +75,11 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (mIsFavorite) {
                     mFavoriteFab.setImageResource(R.drawable.ic_favorite_border_24dp);
+                    mApiService.deleteNeighbourFavorites(mCurrentNeighbour);
                     mIsFavorite = false;
                 } else {
                     mFavoriteFab.setImageResource(R.drawable.ic_favorite_24dp);
+                    mApiService.getNeighboursFavorites().add(mCurrentNeighbour);
                     mIsFavorite = true;
                 }
             }
