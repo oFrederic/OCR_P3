@@ -71,7 +71,7 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
      * Init the List of neighbours
      */
     private void initList() {
-        mFavoritesNeighbours = mApiService.getNeighbours();
+        mFavoritesNeighbours = mApiService.getNeighboursFavorites();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoritesNeighbours));
     }
 
@@ -82,6 +82,7 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
      */
     @Subscribe
     public void onDeleteFavorite(DeleteFavoriteEvent event) {
+        mApiService.deleteNeighbourFavorites(event.neighbour);
         initList();
     }
 }
