@@ -11,8 +11,6 @@ import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
-import butterknife.BindView;
-
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_ID;
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_NAME;
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_PICTURE;
@@ -21,23 +19,14 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
 
     // UI Components
-    @BindView(R.id.activity_user_details_img)
     ImageView mProfilePictureImageView;
-    @BindView(R.id.activity_user_details_return_img)
     ImageView mReturnImageView;
-    @BindView(R.id.activity_user_details_name1_txt)
     TextView mNameTextView1;
-    @BindView(R.id.activity_user_details_name2_txt)
     TextView mNameTextView2;
-    @BindView(R.id.activity_user_details_address_txt)
     TextView mAddressTextView;
-    @BindView(R.id.activity_user_details_phone_txt)
     TextView mPhoneNumberTextView;
-    @BindView(R.id.activity_user_details_facebook_txt)
     TextView mFacebookAddressTextView;
-    @BindView(R.id.activity_user_details_description_txt)
     TextView mDescriptionTextView;
-    @BindView(R.id.activity_user_details_fab)
     FloatingActionButton mFavoriteFab;
 
     //the current user we are looking at
@@ -50,6 +39,17 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        // Attach every widgets with his variable.
+        mProfilePictureImageView = findViewById(R.id.activity_user_details_img);
+        mReturnImageView = findViewById(R.id.activity_user_details_return_img);
+        mNameTextView1 = findViewById(R.id.activity_user_details_name1_txt);
+        mNameTextView2 = findViewById(R.id.activity_user_details_name2_txt);
+        mAddressTextView = findViewById(R.id.activity_user_details_address_txt);
+        mPhoneNumberTextView = findViewById(R.id.activity_user_details_phone_txt);
+        mFacebookAddressTextView = findViewById(R.id.activity_user_details_facebook_txt);
+        mDescriptionTextView = findViewById(R.id.activity_user_details_description_txt);
+        mFavoriteFab = findViewById(R.id.activity_user_details_fab);
 
         //get data and set data
         getIncomingIntent();
