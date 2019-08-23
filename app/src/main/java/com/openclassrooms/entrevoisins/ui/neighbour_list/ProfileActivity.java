@@ -13,6 +13,9 @@ import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_ID;
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_NAME;
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.MyNeighbourRecyclerViewAdapter.EXTRA_PICTURE;
@@ -21,14 +24,23 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
 
     // UI Components
+    @BindView(R.id.activity_user_details_img)
     ImageView mProfilePictureImageView;
+    @BindView(R.id.activity_user_details_return_img)
     ImageView mReturnImageView;
+    @BindView(R.id.activity_user_details_name1_txt)
     TextView mNameTextView1;
+    @BindView(R.id.activity_user_details_name2_txt)
     TextView mNameTextView2;
+    @BindView(R.id.activity_user_details_address_txt)
     TextView mAddressTextView;
+    @BindView(R.id.activity_user_details_phone_txt)
     TextView mPhoneNumberTextView;
+    @BindView(R.id.activity_user_details_facebook_txt)
     TextView mFacebookAddressTextView;
+    @BindView(R.id.activity_user_details_description_txt)
     TextView mDescriptionTextView;
+    @BindView(R.id.activity_user_details_fab)
     FloatingActionButton mFavoriteFab;
 
     private NeighbourApiService mApiService;
@@ -44,16 +56,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Attach every widgets with his variable.
-        mProfilePictureImageView = findViewById(R.id.activity_user_details_img);
-        mReturnImageView = findViewById(R.id.activity_user_details_return_img);
-        mNameTextView1 = findViewById(R.id.activity_user_details_name1_txt);
-        mNameTextView2 = findViewById(R.id.activity_user_details_name2_txt);
-        mAddressTextView = findViewById(R.id.activity_user_details_address_txt);
-        mPhoneNumberTextView = findViewById(R.id.activity_user_details_phone_txt);
-        mFacebookAddressTextView = findViewById(R.id.activity_user_details_facebook_txt);
-        mDescriptionTextView = findViewById(R.id.activity_user_details_description_txt);
-        mFavoriteFab = findViewById(R.id.activity_user_details_fab);
+        // Attach every widgets with his variable using ButterKnife.
+        ButterKnife.bind(this);
 
         // Get data and set data
         getIncomingIntent();

@@ -70,7 +70,7 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
     }
 
     /**
-     * Init the List of neighbours
+     * Init the List of neighbours.
      */
     private void initList() {
         mFavoritesNeighbours = mApiService.getNeighboursFavorites();
@@ -78,9 +78,9 @@ public class FavoritesFragment extends Fragment implements FragmentLifecycle {
     }
 
     /**
-     * Fired if the user clicks on a delete button
+     * Fired if the user clicks on a delete button.
      *
-     * @param event event
+     * @param event event.
      */
     @Subscribe
     public void onDeleteFavorite(DeleteFavoriteEvent event) {

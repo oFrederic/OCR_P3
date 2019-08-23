@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ public class NeighbourFragment extends Fragment implements FragmentLifecycle {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate: called");
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
     }
@@ -40,7 +38,6 @@ public class NeighbourFragment extends Fragment implements FragmentLifecycle {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: called");
         View view = inflater.inflate(R.layout.fragment_neighbour_list, container, false);
         Context context = view.getContext();
         mRecyclerView = (RecyclerView) view;
@@ -72,7 +69,7 @@ public class NeighbourFragment extends Fragment implements FragmentLifecycle {
     }
 
     /**
-     * Init the List of neighbours
+     * Init the List of neighbours.
      */
     private void initList() {
         mNeighbours = mApiService.getNeighbours();
@@ -80,7 +77,7 @@ public class NeighbourFragment extends Fragment implements FragmentLifecycle {
     }
 
     /**
-     * Fired if the user clicks on a delete button
+     * Fired if the user clicks on a delete button.
      *
      * @param event
      */
